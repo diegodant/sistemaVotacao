@@ -1,0 +1,92 @@
+<html ng-app="crudVotacao">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="lib/angular.min.js"></script>
+<script src="lib/angular-resource.min.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+
+<body>
+<form name="VotacaoForm" class="form-inline">
+	<div ng-controller="VotacaoController" class="well" style="width: 700px; margin-top: 60px; margin-left: auto; margin-right: auto;">
+		<div class="row">	
+	  		<div class="col-xs-5">
+	  		<div class="row">
+		  		<div class="navbar-header">
+		  	  	  <div class="navbar-brand" >
+					Vota restaurante
+			       </div>
+				</div>
+			</div>
+			<div ng-hide="usuarioLogado">
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Usuário</label>
+					</div>
+				
+				
+					<div class="col-xs-3">
+						<select class="form-control" id="selectUsuario" ng-options="usuario as usuario.nome for usuario in usuarios track by usuario.idUsuario" required
+													 ng-model="usuario">
+							<option value="">Selecione o Usuário</option>
+													
+						</select>
+					</div>
+							<br/><br/><br/>
+							
+					<div class="col-xs-4">
+						<button class="btn btn-default" ng-click="logar()">Logar</button>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div ng-hide="formVotacao">
+				<div class="row">
+					 <div class="col-xs-4">
+						<label>Restaurante</label>
+					</div>
+					
+					<div class="col-xs-3">
+						<select class="form-control" ng-options="restaurante as restaurante.nomeRestaurante for restaurante in restaurantes track by restaurante.idRestaurante" 
+													required  ng-model="restaurante">
+							<option value="">Selecione o Restaurante</option>
+						</select>
+					</div>
+					<br/><br/><br/>
+							
+					<div class="col-xs-12">
+						<button class="btn btn-default" ng-click="votar()">Votar</button>
+						<a class="btn btn-danger" ng-click="logout()">Logout</a>
+						<a class="btn btn-success" ng-click="resultListnner()">Resultado</a>
+					</div>
+				</div>
+			</div>
+			
+		
+		<hr />
+		
+		<div ng-hide="formResultado">
+			
+			<table class="table table-striped">
+				<tr>
+					<th>Restaurante</th>
+					<th>Qtd de Votos</th>
+				</tr>
+				<tr ng-repeat="votacao in listaVotacao">
+					<td>{{votacao.restaurante.nomeRestaurante}}</td>
+					<td>{{votacao.qtd}}</td>
+				</tr>
+			</table>
+			
+			<a class="btn btn-danger" ng-click="closeResult()">Fechar</a>
+		</div>
+			
+	</div>
+		</div>
+			</div>
+		</form>
+</body>
+</html>
